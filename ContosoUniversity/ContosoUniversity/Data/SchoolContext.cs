@@ -8,22 +8,23 @@ using ContosoUniversity.Models;
 namespace ContosoUniversity.Data
 {
     public class SchoolContext : DbContext
-    {
+    { // constructor accepting DbContextOptions
         public SchoolContext (DbContextOptions<SchoolContext> options)
-            : base(options)
+            : base(options) 
         {
         }
 
+        // DbSet properties for each entity
+        public DbSet<Student> Students { get; set; } // represents the Students table
+        public DbSet<Enrollment> Enrollments { get; set; } // represents the Enrollments table
+        public DbSet<Course> Courses { get; set; } // represents the Courses table
 
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Course> Courses { get; set; }
-
+        // configure the model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Course>().ToTable("Course");
-            modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
-            modelBuilder.Entity<Student>().ToTable("Student");
+            modelBuilder.Entity<Course>().ToTable("Course"); // map Course entity to Course table
+            modelBuilder.Entity<Enrollment>().ToTable("Enrollment"); // map Enrollment entity to Enrollment table
+            modelBuilder.Entity<Student>().ToTable("Student"); // map Student entity to Student table
         }
     }
 }
